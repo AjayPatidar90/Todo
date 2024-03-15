@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
+import Inputmethod from './Components/Inputmethod';
+import List from './Components/List';
 
-function App() {
+const App = () => {
+  const [addlist,setAddlist]= useState([])
+
+    let add=(item)=>{
+       if(item!=="")
+       setAddlist([...addlist,item])
+       
+      }
+
+    let deletebtn =(key)=>{
+      let newlist = ([...addlist])
+      newlist.splice(key,1)
+      setAddlist([...newlist])
+    
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='main-container'>
+      <Inputmethod  add={add}/>
+    
+      <br />
+      <h1>TODO</h1>
+      <br />
+          {
+            addlist.map((value,i)=>{
+             
+             return(
+
+                <List deletebtn={deletebtn} key={i} index={i} value={value}/>
+
+              )
+
+            })
+          }
     </div>
-  );
+    
+  )
 }
 
-export default App;
+export default App
